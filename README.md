@@ -65,8 +65,8 @@ Variable names follow .NET's configuration convention (`Llm__ApiKey` maps to `Ll
 
 | Variable | Required | Default | Purpose |
 |---|---|---|---|
-| `Llm__ApiKey` | ✅ | | Groq API key |
-| `Voyage__ApiKey` | ✅ | | Voyage AI API key |
+| `Llm__ApiKey` | yes | | Groq API key |
+| `Voyage__ApiKey` | yes | | Voyage AI API key |
 | `Llm__BaseUrl` | | `https://api.groq.com/openai/v1` | Any OpenAI-compatible chat API |
 | `Llm__Model` | | `openai/gpt-oss-120b` | Chat model (must support tool calling) |
 | `Voyage__BaseUrl` | | `https://api.voyageai.com/v1` | Embeddings endpoint |
@@ -79,7 +79,7 @@ Frontend (`frontend/.env.local`, see [`frontend/.env.example`](frontend/.env.exa
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_API_URL` | ✅ | Backend URL, e.g. `http://localhost:5000` |
+| `NEXT_PUBLIC_API_URL` | yes | Backend URL, e.g. `http://localhost:5000` |
 
 > **Free-tier limits:** Groq allows about 8,000 tokens per minute for `gpt-oss-120b`, so a few rapid questions in a row can hit the limit; the app shows a "wait a minute" message when that happens. For faster demos switch `Llm:Model` to `openai/gpt-oss-20b` (same limits, quicker), or upgrade to Groq's Developer plan.
 
@@ -110,13 +110,3 @@ Storage__UploadPath=/data/uploads
 | `DELETE` | `/api/documents/{id}` | Delete a document and its chunks |
 | `POST` | `/api/chat` | `{ messages, documentIds? }` → SSE stream of `step`, `sources`, `quiz`, `answer` and `error` events |
 
-## Roadmap
-
-- [ ] Auth, so each user's documents are private
-- [ ] Hybrid search (pgvector + Postgres full-text) and re-ranking
-- [ ] OCR for scanned PDFs (e.g. Tesseract, or a vision-capable model)
-- [ ] Flashcards with spaced repetition, plus tracking weak topics across sessions
-- [ ] `drug_card` tool: a structured drug summary (class, mechanism, indications, adverse effects, interactions)
-- [ ] Evaluation suite: a question set with retrieval hit-rate and answer-faithfulness scores
-- [ ] Token-by-token streaming of the final answer (`GetStreamingResponseAsync`)
-- [ ] Rate limiting and a daily spend cap for the public demo
