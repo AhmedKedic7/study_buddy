@@ -1,0 +1,41 @@
+# Local development: `docker compose up -d db` for just the database,
+# or `docker compose --profile full up --build` to also run the API in a container.
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: studybuddy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    # Starts only with: docker compose --profile full up --build
+    depends_on:
+      db:
+        condition: service_healthy
+    # API keys and other settings come from .env (copy .env.example).
+    env_file:
+      - path: .env
+        required: false
+    # Container-specific values; these override .env.
+    environment:
+      ConnectionStrings__Postgres: Host=db;Port=5432;Database=studybuddy;Username=postgres;Password=postgres
+      Storage__UploadPath: /data/uploads
+    ports:
+      - "5000:8080"
+    volumes:
+      - uploads:/data/uploads
+    profiles: ["full"]
+
+volumes:
+  pgdata:
+  uploads:
