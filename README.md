@@ -1,6 +1,10 @@
 
 
-https://github.com/user-attachments/assets/14276f71-6171-46f8-91a5-410063ceb5b7
+
+
+https://github.com/user-attachments/assets/da12f7b4-457e-4973-b4b6-de2e522ee303
+
+
 
 # Study Buddy
 
