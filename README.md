@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/14276f71-6171-46f8-91a5-410063ceb5b7
+
 # Study Buddy
 
 An agentic RAG study assistant. Upload lecture PDFs, then ask questions answered **only from your notes** (with page citations), or have it generate **interactive quizzes** on any topic.
